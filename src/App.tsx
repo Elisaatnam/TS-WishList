@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import WishForm from "./components/WishForm";
 import WishList from "./components/WishList";
+import playSound from "./playSound";
 
 export type Wish = {
   id: string;
@@ -27,6 +28,7 @@ function App() {
     setWishes((prevWishes) =>
       prevWishes.filter((wish) => wish.id !== deleteId),
     );
+    playSound("delete");
   };
 
   const changeWishFulfillment = (updateId: string) => {
@@ -35,6 +37,7 @@ function App() {
         wish.id === updateId ? { ...wish, completed: !wish.completed } : wish,
       );
     });
+    playSound("done");
   };
 
   useEffect(() => {
