@@ -24,6 +24,14 @@ function App() {
     setWishes((prevWishes) => [...prevWishes, newWish]);
   };
 
+  const editWishTitle = (editId: string, newTitle: string) => {
+    setWishes((prevWishes) =>
+      prevWishes.map((wish) =>
+        wish.id === editId ? { ...wish, title: newTitle } : wish,
+      ),
+    );
+  };
+
   const deleteWish = (deleteId: string) => {
     setWishes((prevWishes) =>
       prevWishes.filter((wish) => wish.id !== deleteId),
@@ -32,11 +40,11 @@ function App() {
   };
 
   const changeWishFulfillment = (updateId: string) => {
-    setWishes((prevWishes) => {
-      return prevWishes.map((wish) =>
+    setWishes((prevWishes) =>
+      prevWishes.map((wish) =>
         wish.id === updateId ? { ...wish, completed: !wish.completed } : wish,
-      );
-    });
+      ),
+    );
     playSound("done");
   };
 
@@ -48,10 +56,12 @@ function App() {
     <div className="flex min-h-screen flex-col items-center gap-4 bg-blue-100">
       <h1 className="my-4 text-4xl">Wish List 🎁</h1>
       <WishForm addWish={addWish} />
+
       <WishList
         wishes={wishes}
         deleteWish={deleteWish}
         changeWishFulfillment={changeWishFulfillment}
+        editWishTitle={editWishTitle}
       />
     </div>
   );
